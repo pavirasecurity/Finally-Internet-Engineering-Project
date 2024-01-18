@@ -1,0 +1,24 @@
+{% extends 'layout.html'%} {%block head%}
+<title>وریفای یوزر</title>
+{% endblock head %} {%block body%}
+<div>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    {% if mailSent %} {{form.code(autocomplete="off")}}
+    <button
+      type="submit"
+      class="block mx-auto m-2 hover:text-rose-500 duration-150 font-medium"
+    >
+      وریفای کن
+    </button>
+    {% else %}
+    <button
+      type="submit"
+      class="block mx-auto m-2 hover:text-rose-500 duration-150 font-medium"
+    >
+      کلیک برای ارسال کد
+    </button>
+    {% endif %}
+  </form>
+</div>
+{% endblock body %}

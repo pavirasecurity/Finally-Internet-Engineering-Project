@@ -1,0 +1,18 @@
+{% extends 'layout.html'%} {%block head%}
+<title>ساخت پست</title>
+{% endblock head %} {%block body%}
+<div class="w-fit mx-auto mt-8">
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    {{form.postTitle(autocomplete="off")}} {{form.postTags(autocomplete="off")}}
+    <p class="text-xs text-center w-fit mx-auto mb-2">(separete with comma)</p>
+    {{form.postContent(id_="editor", autocomplete="off")}}
+    <button
+      type="submit"
+      class="block mx-auto m-2 hover:text-rose-500 duration-150 font-medium "
+    >
+      پست کن
+    </button>
+  </form>
+</div>
+{% endblock body %}

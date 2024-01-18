@@ -1,0 +1,66 @@
+{% extends 'layout.html'%} {%block head%}
+<title>پنل ادیمن</title>
+{% endblock head %} {%block body%}
+<div>
+  <h1>یوزرها</h1>
+  {% for user in users %}
+  <div>
+    <section>
+      <p>ایدی: {{user[0]}}</p>
+      <p>نقش: {{user[5]}}</p>
+    </section>
+    <section>
+      <p>
+        یوزرنیم:
+        <a href="/user/{{user[1].lower()}}">{{user[1]}}</a>
+      </p>
+      <img src="{{user[4]}}" alt="{{user[1]}}" />
+    </section>
+    <section>
+      <p>ایمیل: {{user[2]}}</p>
+      <p>امتیازها: {{user[6]}}</p>
+    </section>
+    <section>
+      <p>تاریخ پیوستن: {{user[7]}}</p>
+      <p>زمان پیوستن: {{user[8]}}</p>
+    </section>
+    <section>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="userName" value="{{user[1]}}" />
+        <button
+          type="submit"
+          name="userDeleteButton"
+          class="block mx-auto m-2 hover:text-rose-500 duration-150 font-medium"
+        >
+          حذف یوزر
+        </button>
+      </form>
+      {% if user[5] == "admin" %}
+      <a href="/setuserrole/{{user[1].lower()}}/user">تغییر نقش به یوزر</a>
+      {% else %}
+      <a href="/setuserrole/{{user[1].lower()}}/admin"
+        >تغییر نقش به ادمین</a
+      >
+      {% endif %}
+    </section>
+  </div>
+  {% endfor %}
+</div>
+<a href="/admin"
+  ><svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-6 h-6 hover:text-rose-500 duration-150"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+    />
+  </svg>
+</a>
+{% endblock body %}

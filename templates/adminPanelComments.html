@@ -1,0 +1,53 @@
+{% extends 'layout.html'%} {%block head%}
+<title>Admin Panel --> Comments</title>
+{% endblock head %} {%block body%}
+<h1>کامنت ها</h1>
+{% for comment in comments %}
+<div>
+  <h3>
+    پست ایدی:
+    <a href="/post/{{comment[0]}} ">{{comment[1]}}</a>
+  </h3>
+  <div tag="content">{{comment[2]}}</div>
+  <section>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <input type="hidden" name="commentID" value="{{comment[0]}}" />
+      <button
+        type="submit"
+        name="commentDeleteButton"
+        class="block mx-auto m-2 hover:text-rose-500 duration-150 font-medium"
+      >
+        حذف
+      </button>
+    </form>
+  </section>
+  <div>
+    <p>Creation Time: {{comment[5]}}</p>
+    <p>Creation Date: {{comment[4]}}</p>
+  </div>
+  {% if request.path == "/admin/comments" %}
+  <p>
+    نویسنده:
+    <a href="/user/{{comment[3].lower()}}">{{comment[3]}}</a>
+  </p>
+  {% endif %}
+</div>
+{% endfor %} {% if request.path == "/admin/comments" %}
+<a href="/admin"
+  ><svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-6 h-6 hover:text-rose-500 duration-150"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+    />
+  </svg>
+</a>
+{% endif %} {% endblock body %}
